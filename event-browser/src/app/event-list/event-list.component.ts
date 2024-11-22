@@ -1,11 +1,16 @@
-import { Component } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-event-list',
-  imports: [],
   templateUrl: './event-list.component.html',
-  styleUrl: './event-list.component.css'
+  standalone: true,
+  imports: [
+    CommonModule,
+    DatePipe
+  ],
+  providers: [DatePipe]
 })
 export class EventListComponent {
-
+  @Input() events: any[] = [];
 }

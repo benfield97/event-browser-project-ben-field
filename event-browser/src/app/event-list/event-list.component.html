@@ -1,1 +1,14 @@
-<p>event-list works!</p>
+<ng-container *ngIf="events">
+  <p *ngIf="events.length">Found {{ events.length }} events:</p>
+  
+  <div *ngFor="let event of events">
+    <h3>{{ event.name }}</h3>
+    <p>
+      Date: {{ event.dates?.start?.localDate | date }}<br />
+      Time: {{ event.dates?.start?.localTime }}<br />
+      Venue: {{ event._embedded?.venues[0]?.name }}, {{ event._embedded?.venues[0]?.city?.name }}
+    </p>
+  </div>
+
+  <p *ngIf="!events.length">No events found.</p>
+</ng-container>
