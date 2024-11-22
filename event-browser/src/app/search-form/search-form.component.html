@@ -1,1 +1,6 @@
-<p>search-form works!</p>
+<form (ngSubmit)="onSearch()">
+    <input type="text" placeholder="Location" [(ngModel)]="location" name="location" required />
+    <input type="date" [(ngModel)]="startDate" name="startDate" required />
+    <input type="date" [(ngModel)]="endDate" name="endDate" required />
+    <button type="submit">Search</button>
+  </form>
