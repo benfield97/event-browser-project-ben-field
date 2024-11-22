@@ -3,7 +3,16 @@
     <p class="event-count" *ngIf="events.length">Found {{ events.length }} events:</p>
     
     <div class="event-card" *ngFor="let event of events">
-      <h3>{{ event.name }}</h3>
+      <div class="event-header">
+        <div class="image-container" *ngIf="event.images?.length">
+          <img 
+            [src]="getEventImage(event)" 
+            [alt]="event.name"
+            class="event-image"
+          >
+        </div>
+        <h3>{{ event.name }}</h3>
+      </div>
       <div class="event-details">
         Date: {{ event.dates?.start?.localDate | date }}<br />
         Time: {{ event.dates?.start?.localTime }}<br />
