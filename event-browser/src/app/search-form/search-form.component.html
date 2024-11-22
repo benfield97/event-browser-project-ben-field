@@ -2,6 +2,21 @@
     <input type="text" placeholder="Location" [(ngModel)]="location" name="location" required />
     <input type="date" [(ngModel)]="startDate" name="startDate" required />
     <input type="date" [(ngModel)]="endDate" name="endDate" required />
-    <button type="submit">Search</button>
+    <button type="submit" [disabled]="isLoading">
+      {{ isLoading ? 'Searching...' : 'Search' }}
+    </button>
   </form>
   <app-event-list [events]="events"></app-event-list>
+
+  <div class="load-more-container" *ngIf="events.length > 0">
+    <button 
+      *ngIf="hasMoreEvents"
+      (click)="loadMore()" 
+      [disabled]="isLoading"
+      class="load-more-button">
+      {{ isLoading ? 'Loading...' : 'Load More Events' }}
+    </button>
+    <p *ngIf="!hasMoreEvents" class="all-loaded-message">
+      All events loaded ({{ events.length }} total)
+    </p>
+  </div>
