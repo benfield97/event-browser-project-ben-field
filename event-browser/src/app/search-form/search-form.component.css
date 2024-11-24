@@ -1,3 +1,4 @@
+/* Host and Form Wrapper */
 :host {
   display: block;
   width: 100%;
@@ -5,116 +6,132 @@
   padding: 1rem;
 }
 
-.search-form {
+.search-form-wrapper {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1.5rem;
   box-sizing: border-box;
+}
+
+/* Form Styling */
+.search-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem;
   background: #ffffff;
   border: 3px solid #000000;
   border-radius: 12px;
   box-shadow: 6px 6px 0 #000000;
+}
+
+.filter-group {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
-/* Form inputs and selects */
+/* Inputs and Selects */
 .form-input,
-.form-select,
-.search-input {
-  margin: 0;
+.form-select {
+  flex: 1;
   width: 100%;
-  padding: 0.75rem;
+  padding: 1rem;
   font-size: 1rem;
   background: #ffffff;
   border: 3px solid #000000;
   border-radius: 8px;
-  transition: all 0.2s ease;
   box-shadow: 4px 4px 0 #000000;
-  
-  &:hover {
-    transform: none;
-    box-shadow: 4px 4px 0 #000000;
-  }
+  transition: all 0.2s ease;
+  position: relative;
+  top: -4px;
+}
 
-  &:focus {
-    outline: none;
-    background: #ffffff;
-    transform: translate(-4px, -4px);
-    box-shadow: 8px 8px 0 #000000;
-  }
+
+/* Remove focus outline and effects */
+.form-input:focus,
+.form-select:focus {
+  outline: none;
 }
 
 .form-select {
   cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23000000' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-}
-
-@media (max-width: 640px) {
-  .form-input,
-  .form-select,
-  .search-input {
-    font-size: 16px; /* Prevents zoom on mobile */
-    box-shadow: 3px 3px 0 #000000;
-    
-    &:hover {
-      transform: none;
-      box-shadow: 3px 3px 0 #000000;
-    }
-  }
-
-  .search-form-wrapper {
-    padding: 1rem;
-    border-width: 2px;
-    box-shadow: 4px 4px 0 #000000;
-    border-radius: 8px;
-  }
-
-  .search-form {
-    padding: 1.25rem;
-    gap: 0.875rem;
-  }
+  background-position: right 0.75rem center;
 }
 
 /* Buttons */
-.primary-button,
-.secondary-button {
-  background: #FF3B30;
+.button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
   color: white;
   border: 2px solid #000000;
   border-radius: 8px;
-  padding: 0.75rem 1.5rem;
-  font-weight: 600;
-  font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s ease;
   transform: translateY(-2px);
   box-shadow: 4px 4px 0 #000000;
 }
 
-.primary-button:hover:not(:disabled),
-.secondary-button:hover:not(:disabled) {
-  background: #FF2D20;
+.button:hover:not(:disabled) {
   transform: translateY(0);
   box-shadow: none;
 }
 
-.primary-button:disabled,
-.secondary-button:disabled {
+.button:disabled {
   background: #cccccc;
   cursor: not-allowed;
+  opacity: 0.7;
   transform: none;
   box-shadow: none;
-  opacity: 0.7;
 }
 
-/* Load more section */
+.primary-button {
+  background: #FF3B30;
+}
+
+.primary-button:hover:not(:disabled) {
+  background: #FF2D20;
+}
+
+.secondary-button {
+  background: #FF3B30;
+}
+
+.secondary-button:hover:not(:disabled) {
+  background: #FF2D20;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  :host {
+    padding: 0.5rem;
+  }
+
+  .search-form-wrapper {
+    padding: 1rem;
+  }
+
+  .search-form {
+    padding: 1.25rem;
+    gap: 1rem;
+  }
+
+  .filter-group {
+    flex-direction: column;
+  }
+
+  .form-input,
+  .form-select {
+    font-size: 16px; /* Prevents zoom on mobile */
+  }
+}
+
+/* Load More Section */
 .load-more-container {
   display: flex;
   justify-content: center;
@@ -127,43 +144,3 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   margin-top: 1rem;
 }
-
-@media (max-width: 640px) {
-  :host {
-    padding: 0.5rem;
-  }
-
-  .search-form-wrapper {
-    padding: 0.5rem;
-  }
-
-  .search-form {
-    padding: 1.25rem;
-    gap: 0.875rem;
-  }
-
-  .form-input,
-  .form-select {
-    flex: 1;
-    max-width: 100%;
-    width: 100%;
-  }
-}
-
-.search-button {
-  margin: 0;
-  padding: 0.75rem 1.5rem;
-  font-weight: bold;
-  background: #ff3e3e;
-  border: 3px solid #000000;
-  color: #ffffff;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.search-button:hover {
-  transform: translate(-4px, -4px);
-  box-shadow: 4px 4px 0px #000000;
-}
-
-
