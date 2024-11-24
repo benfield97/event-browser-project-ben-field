@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { of, throwError } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import { EventListComponent } from '../event-list/event-list.component';
 import { TicketmasterApiService } from '../ticketmaster-api.service';
 import { SearchFormComponent } from './search-form.component';
@@ -50,18 +51,32 @@ describe('SearchFormComponent', () => {
   });
 
   describe('onSearch', () => {
-    it('should reset state and call loadEvents', () => {
+    it('should reset state and call loadEvents', fakeAsync(() => {
+      // Setup: Create a delayed Observable instead of immediate response
+      const delayedResponse = new Promise(resolve => 
+        setTimeout(() => resolve(mockResponse), 100)
+      );
+      apiServiceSpy.searchEvents.and.returnValue(of(mockResponse).pipe(delay(100)));
+
+      // Initial state
       component.events = [{ id: 'old-event' }];
       component.currentPage = 2;
       component.totalPages = 5;
 
+      // Action
       component.onSearch();
 
+      // Verify immediate reset
       expect(component.events).toEqual([]);
       expect(component.currentPage).toBe(0);
       expect(component.totalPages).toBe(0);
-      expect(apiServiceSpy.searchEvents).toHaveBeenCalled();
-    });
+      
+      // Wait for API response
+      tick(100);
+      
+      // Verify final state after API response
+      expect(component.events).toEqual(mockResponse._embedded.events);
+    }));
   });
 
   describe('loadEvents', () => {
