@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EventListComponent } from '../event-list/event-list.component';
 import { TicketmasterApiService, TicketmasterResponse } from '../ticketmaster-api.service';
@@ -8,7 +8,8 @@ import { TicketmasterApiService, TicketmasterResponse } from '../ticketmaster-ap
   selector: 'app-search-form',
   imports: [CommonModule, FormsModule, EventListComponent],
   templateUrl: './search-form.component.html',
-  styleUrl: './search-form.component.css',
+  styleUrls: ['./search-form.component.css'],
+  encapsulation: ViewEncapsulation.Emulated,
   standalone: true
 })
 export class SearchFormComponent {
