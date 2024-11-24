@@ -12,9 +12,19 @@ import { TicketmasterApiService, TicketmasterResponse } from '../ticketmaster-ap
   standalone: true
 })
 export class SearchFormComponent {
+  // Location filters
   location: string = '';
+  stateCode: string = '';
+
+  // Event filters
+  keyword: string = '';
+  genre: string = '';
+
+  // Date filters
   startDate: string = '';
   endDate: string = '';
+
+  // State management
   events: any[] = [];
   isLoading: boolean = false;
   currentPage: number = 0;
@@ -35,37 +45,39 @@ export class SearchFormComponent {
     this.isLoading = true;
     const PAGE_SIZE = 50;
 
-    this.apiService.searchEvents(
-      this.location, 
-      this.startDate, 
-      this.endDate, 
-      this.currentPage,
-      PAGE_SIZE
-    )
-      .subscribe({
-        next: (response: TicketmasterResponse) => {
-          if (response._embedded?.events) {
-            // Add new events to existing array, ensuring no duplicates
-            const newEvents = response._embedded.events;
-            const uniqueEvents = [...this.events];
-            
-            newEvents.forEach(newEvent => {
-              if (!uniqueEvents.some(e => e.id === newEvent.id)) {
-                uniqueEvents.push(newEvent);
-              }
-            });
+    this.apiService.searchEvents({
+      location: this.location,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      stateCode: this.stateCode,
+      keyword: this.keyword,
+      classificationName: this.genre,
+      page: this.currentPage,
+      size: PAGE_SIZE
+    }).subscribe({
+      next: (response: TicketmasterResponse) => {
+        if (response._embedded?.events) {
+          // Add new events to existing array, ensuring no duplicates
+          const newEvents = response._embedded.events;
+          const uniqueEvents = [...this.events];
+          
+          newEvents.forEach(newEvent => {
+            if (!uniqueEvents.some(e => e.id === newEvent.id)) {
+              uniqueEvents.push(newEvent);
+            }
+          });
 
-            this.events = uniqueEvents;
-            this.totalPages = response.page.totalPages;
-            this.hasMoreEvents = this.currentPage < (this.totalPages - 1);
-          }
-          this.isLoading = false;
-        },
-        error: (error) => {
-          console.error('Error fetching events:', error);
-          this.isLoading = false;
+          this.events = uniqueEvents;
+          this.totalPages = response.page.totalPages;
+          this.hasMoreEvents = this.currentPage < (this.totalPages - 1);
         }
-      });
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error fetching events:', error);
+        this.isLoading = false;
+      }
+    });
   }
 
   loadMore() {

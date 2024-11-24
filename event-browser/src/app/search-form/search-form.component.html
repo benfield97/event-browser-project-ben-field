@@ -1,22 +1,78 @@
-<form (ngSubmit)="onSearch()">
-    <input type="text" placeholder="Location" [(ngModel)]="location" name="location" required />
-    <input type="date" [(ngModel)]="startDate" name="startDate" required />
-    <input type="date" [(ngModel)]="endDate" name="endDate" required />
-    <button type="submit" [disabled]="isLoading">
+<div class="search-form-wrapper">
+  <form (ngSubmit)="onSearch()" class="search-form">
+    <!-- Location filters -->
+    <div class="filter-group">
+      <input 
+        class="form-input"
+        type="text" 
+        placeholder="Location" 
+        [(ngModel)]="location" 
+        name="location" />
+
+      <select class="form-select" [(ngModel)]="stateCode" name="stateCode">
+        <option value="">Select State</option>
+        <option value="NSW">New South Wales</option>
+        <option value="VIC">Victoria</option>
+        <option value="QLD">Queensland</option>
+        <option value="WA">Western Australia</option>
+        <option value="SA">South Australia</option>
+        <option value="TAS">Tasmania</option>
+        <option value="NT">Northern Territory</option>
+        <option value="ACT">Australian Capital Territory</option>
+      </select>
+    </div>
+
+    <!-- Event filters -->
+    <div class="filter-group">
+      <input 
+        class="form-input"
+        type="text" 
+        placeholder="Search by keyword" 
+        [(ngModel)]="keyword" 
+        name="keyword" />
+
+      <select class="form-select" [(ngModel)]="genre" name="Event Type">
+        <option value="">All</option>
+        <option value="Music">Music</option>
+        <option value="Sports">Sports</option>
+        <option value="Arts">Arts & Theatre</option>
+        <option value="Family">Family</option>
+        <option value="Comedy">Comedy</option>
+      </select>
+    </div>
+
+    <!-- Date filters -->
+    <div class="filter-group">
+      <input 
+        class="form-input"
+        type="date" 
+        [(ngModel)]="startDate" 
+        name="startDate" 
+        required />
+      <input 
+        class="form-input"
+        type="date" 
+        [(ngModel)]="endDate" 
+        name="endDate" 
+        required />
+    </div>
+
+    <button type="submit" [disabled]="isLoading" class="primary-button">
       {{ isLoading ? 'Searching...' : 'Search' }}
     </button>
   </form>
   <app-event-list [events]="events"></app-event-list>
+</div>
 
-  <div class="load-more-container" *ngIf="events.length > 0">
-    <button 
-      *ngIf="hasMoreEvents"
-      (click)="loadMore()" 
-      [disabled]="isLoading"
-      class="load-more-button">
-      {{ isLoading ? 'Loading...' : 'Load More Events' }}
-    </button>
-    <p *ngIf="!hasMoreEvents" class="all-loaded-message">
-      All events loaded ({{ events.length }} total)
-    </p>
-  </div>
+<div class="load-more-container" *ngIf="events.length > 0">
+  <button 
+    *ngIf="hasMoreEvents"
+    (click)="loadMore()" 
+    [disabled]="isLoading"
+    class="secondary-button">
+    {{ isLoading ? 'Loading...' : 'Load More Events' }}
+  </button>
+  <p *ngIf="!hasMoreEvents" class="all-loaded-message">
+    All events loaded ({{ events.length }} total)
+  </p>
+</div>
