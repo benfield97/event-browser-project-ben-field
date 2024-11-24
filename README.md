@@ -13,7 +13,7 @@ Before running this application, make sure you have the following installed:
 1. Clone the repository:
 
 
-2. Install dependencies:
+2. Install dependencies 
 
 
 3. Start the development server:
