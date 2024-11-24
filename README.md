@@ -18,7 +18,7 @@ Before running this application, make sure you have the following installed:
 
 3. Start the development server:
 ```bash
-npm start
+ng serve
 ```
 
 4. Open your browser and navigate to `http://localhost:4200/`. 
