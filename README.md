@@ -7,7 +7,7 @@ An Angular application for browsing events using the Ticketmaster API.
 ## Prerequisites
 
 Before running this application, make sure you have the following installed:
-- Node.js (v18 or higher)
+- Node.js 
 - npm (Node Package Manager)
 
 ## Getting Started
