@@ -1,5 +1,5 @@
-import { provideHttpClient, withFetch } from '@angular/common/http';
-import { HttpTestingController } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { environment } from '../environments/environment';
 import { TicketmasterApiService } from './ticketmaster-api.service';
@@ -16,7 +16,8 @@ describe('TicketmasterApiService', () => {
     TestBed.configureTestingModule({
       providers: [
         TicketmasterApiService,
-        provideHttpClient(withFetch()),
+        provideHttpClient(),
+        provideHttpClientTesting(),
       ]
     });
     service = TestBed.inject(TicketmasterApiService);

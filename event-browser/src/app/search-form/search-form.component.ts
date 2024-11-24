@@ -33,8 +33,15 @@ export class SearchFormComponent {
 
   loadEvents() {
     this.isLoading = true;
+    const PAGE_SIZE = 50;
 
-    this.apiService.searchEvents(this.location, this.startDate, this.endDate, this.currentPage)
+    this.apiService.searchEvents(
+      this.location, 
+      this.startDate, 
+      this.endDate, 
+      this.currentPage,
+      PAGE_SIZE
+    )
       .subscribe({
         next: (response: TicketmasterResponse) => {
           if (response._embedded?.events) {

@@ -120,9 +120,9 @@ describe('SearchFormComponent', () => {
   it('should handle load more events', fakeAsync(() => {
     component.hasMoreEvents = true;
     component.currentPage = 0;
-    component.location = 'London';
-    component.startDate = '2024-03-20';
-    component.endDate = '2024-03-21';
+    component.location = 'Melbourne';
+    component.startDate = '2024-11-20';
+    component.endDate = '2025-03-21';
 
     component.loadMore();
     tick();
